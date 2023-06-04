@@ -258,10 +258,44 @@ class Contact {
         }
       }
 
+      viewPersonsByCity(city) {
+        const personsInCity = this.contacts
+          .filter((contact) => contact.city === city)
+          .map((contact) => contact.firstName + " " + contact.lastName);
+    
+        if (personsInCity.length === 0) {
+          console.log(`No persons found in the city of ${city}.`);
+        } else {
+          console.log(`Persons found in the city of ${city}:`);
+          console.log(personsInCity.join(", "));
+        }
+      }
+    
+      viewPersonsByState(state) {
+        const personsInState = this.contacts
+          .filter((contact) => contact.state === state)
+          .map((contact) => contact.firstName + " " + contact.lastName);
+    
+        if (personsInState.length === 0) {
+          console.log(`No persons found in the state of ${state}.`);
+        } else {
+          console.log(`Persons found in the state of ${state}:`);
+          console.log(personsInState.join(", "));
+        }
+      }
+
     getNumberOfContacts() {
         return this.contacts.length;
       }
   }
+
+  // Viewing persons in a particular city
+const viewCity = "New York";
+addressBook.viewPersonsByCity(viewCity);
+
+// Viewing persons in a particular state
+const viewState = "NY";
+addressBook.viewPersonsByState(viewState);
   
   // Creating an AddressBook instance
   const addressBook = new AddressBook();
