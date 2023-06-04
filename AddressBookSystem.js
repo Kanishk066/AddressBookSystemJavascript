@@ -9,6 +9,9 @@ class Contact {
       this.setPhoneNumber(phoneNumber);
       this.setEmail(email);
     }
+    toString() {
+        return `${this.firstName} ${this.lastName}\nAddress: ${this.address}\nCity: ${this.city}\nState: ${this.state}\nZip: ${this.zip}\nPhone: ${this.phoneNumber}\nEmail: ${this.email}\n`;
+      }
 
     setFirstName(firstName) {
         this.firstName = firstName;
@@ -310,6 +313,16 @@ class Contact {
         }
       }
 
+      sortEntriesByName() {
+        this.contacts.sort((a, b) => {
+          const nameA = `${a.firstName} ${a.lastName}`.toLowerCase();
+          const nameB = `${b.firstName} ${b.lastName}`.toLowerCase();
+          if (nameA < nameB) return -1;
+          if (nameA > nameB) return 1;
+          return 0;
+        });
+      }
+
     getNumberOfContacts() {
         return this.contacts.length;
       }
@@ -384,5 +397,14 @@ try {
   }  
 const numberOfContacts = addressBook.getNumberOfContacts();
 console.log("Number of Contacts:", numberOfContacts);
+
+// Displaying contacts before sorting
+addressBook.displayContacts();
+
+// Sorting entries by name
+addressBook.sortEntriesByName();
+
+// Displaying contacts after sorting
+addressBook.displayContacts();
   
   
