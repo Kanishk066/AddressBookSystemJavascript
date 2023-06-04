@@ -149,8 +149,7 @@ class Contact {
     }
   }
 
-  
-class AddressBook {
+  class AddressBook {
     constructor() {
       this.contacts = [];
     }
@@ -160,24 +159,28 @@ class AddressBook {
     }
   
     findContactByName(firstName, lastName) {
-      for (let contact of this.contacts) {
-        if (contact.firstName === firstName && contact.lastName === lastName) {
-          return contact;
+      for (let i = 0; i < this.contacts.length; i++) {
+        if (
+          this.contacts[i].firstName === firstName &&
+          this.contacts[i].lastName === lastName
+        ) {
+          return i; // Return the index of the found contact
         }
       }
-      return null; // Contact not found
+      return -1; // Contact not found
     }
   
     editContact(firstName, lastName, newDetails) {
-      const contact = this.findContactByName(firstName, lastName);
-      if (contact) {
+      const index = this.findContactByName(firstName, lastName);
+      if (index !== -1) {
+        const contact = this.contacts[index];
         const {
           address = contact.address,
           city = contact.city,
           state = contact.state,
           zip = contact.zip,
           phoneNumber = contact.phoneNumber,
-          email = contact.email
+          email = contact.email,
         } = newDetails;
         contact.setAddress(address);
         contact.setCity(city);
@@ -186,6 +189,16 @@ class AddressBook {
         contact.setPhoneNumber(phoneNumber);
         contact.setEmail(email);
         console.log("Contact edited successfully.");
+      } else {
+        console.log("Contact not found.");
+      }
+    }
+  
+    deleteContact(firstName, lastName) {
+      const index = this.findContactByName(firstName, lastName);
+      if (index !== -1) {
+        this.contacts.splice(index, 1);
+        console.log("Contact deleted successfully.");
       } else {
         console.log("Contact not found.");
       }
@@ -217,8 +230,8 @@ class AddressBook {
       "Doe",
       "123 Main St",
       "New York",
-      "NYCA",
-      "123456",
+      "NY",
+      "12345",
       "1234567890",
       "john.doe@example.com"
     );
@@ -229,8 +242,8 @@ class AddressBook {
       "Smith",
       "456 Elm St",
       "Los Angeles",
-      "CAAC",
-      "987656",
+      "CA",
+      "98765",
       "9876543210",
       "jane.smith@example.com"
     );
@@ -243,19 +256,28 @@ class AddressBook {
     const firstName = "John";
     const lastName = "Doe";
     const newDetails = {
-      address: "456 Oak St",
-      city: "New York",
-      state: "NYCA",
-      zip: "543212",
-      phoneNumber: "5555555555",
-      email: "john.doe@example.com"
-    };
-    addressBook.editContact(firstName, lastName, newDetails);
-  
-    // Displaying contacts after editing
-    addressBook.displayContacts();
-  } catch (error) {
-    console.log("Error:", error.message);
-  }
+    address: "456 Oak",
+    city: "New York",
+    state: "NY",
+    zip: "54321",
+    phoneNumber: "5555555555",
+    email: "john.doe@example.com",
+  };
+  addressBook.editContact(firstName, lastName, newDetails);
+
+  // Displaying contacts after editing
+  addressBook.displayContacts();
+
+  // Finding and deleting a contact
+  const deleteFirstName = "Jane";
+  const deleteLastName = "Smith";
+  addressBook.deleteContact(deleteFirstName, deleteLastName);
+
+  // Displaying contacts after deleting
+  addressBook.displayContacts();
+} catch (error) {
+  console.log("Error:", error.message);
+}  
+
   
   
