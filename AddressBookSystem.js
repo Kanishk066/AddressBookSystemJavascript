@@ -148,14 +148,47 @@ class Contact {
       }
     }
   }
+
   
-  class AddressBook {
+class AddressBook {
     constructor() {
       this.contacts = [];
     }
   
     addContact(contact) {
       this.contacts.push(contact);
+    }
+  
+    findContactByName(firstName, lastName) {
+      for (let contact of this.contacts) {
+        if (contact.firstName === firstName && contact.lastName === lastName) {
+          return contact;
+        }
+      }
+      return null; // Contact not found
+    }
+  
+    editContact(firstName, lastName, newDetails) {
+      const contact = this.findContactByName(firstName, lastName);
+      if (contact) {
+        const {
+          address = contact.address,
+          city = contact.city,
+          state = contact.state,
+          zip = contact.zip,
+          phoneNumber = contact.phoneNumber,
+          email = contact.email
+        } = newDetails;
+        contact.setAddress(address);
+        contact.setCity(city);
+        contact.setState(state);
+        contact.setZip(zip);
+        contact.setPhoneNumber(phoneNumber);
+        contact.setEmail(email);
+        console.log("Contact edited successfully.");
+      } else {
+        console.log("Contact not found.");
+      }
     }
   
     displayContacts() {
@@ -174,67 +207,55 @@ class Contact {
     }
   }
   
-  // Creating a new Address Book array
-  const addressBooks = [];
+  // Creating an AddressBook instance
+  const addressBook = new AddressBook();
   
-  // Adding contacts to the first Address Book
-  const addressBook1 = new AddressBook();
+  // Adding contacts
   try {
     const contact1 = new Contact(
       "John",
       "Doe",
       "123 Main St",
       "New York",
-      "NY",
-      "12345",
+      "NYCA",
+      "123456",
       "1234567890",
       "john.doe@example.com"
     );
-    addressBook1.addContact(contact1);
+    addressBook.addContact(contact1);
   
     const contact2 = new Contact(
       "Jane",
       "Smith",
       "456 Elm St",
       "Los Angeles",
-      "CA",
-      "98765",
+      "CAAC",
+      "987656",
       "9876543210",
       "jane.smith@example.com"
     );
-    addressBook1.addContact(contact2);
+    addressBook.addContact(contact2);
   
-    // Adding addressBook1 to the addressBooks array
-    addressBooks.push(addressBook1);
+    // Displaying contacts
+    addressBook.displayContacts();
+  
+    // Finding and editing a contact
+    const firstName = "John";
+    const lastName = "Doe";
+    const newDetails = {
+      address: "456 Oak St",
+      city: "New York",
+      state: "NYCA",
+      zip: "543212",
+      phoneNumber: "5555555555",
+      email: "john.doe@example.com"
+    };
+    addressBook.editContact(firstName, lastName, newDetails);
+  
+    // Displaying contacts after editing
+    addressBook.displayContacts();
   } catch (error) {
     console.log("Error:", error.message);
-  }
-  
-  // Adding contacts to the second Address Book
-  const addressBook2 = new AddressBook();
-  try {
-    const contact3 = new Contact(
-      "Alice",
-      "Johnson",
-      "789 Oak St",
-      "Chicago",
-      "IL",
-      "54321",
-      "9876543210",
-      "alice.johnson@example.com"
-    );
-    addressBook2.addContact(contact3);
-  
-    // Adding addressBook2 to the addressBooks array
-    addressBooks.push(addressBook2);
-  } catch (error) {
-    console.log("Error:", error.message);
-  }
-  
-  // Displaying all contacts in each Address Book
-  for (let i = 0; i < addressBooks.length; i++) {
-    console.log("Address Book " + (i + 1) + ":");
-    addressBooks[i].displayContacts();
   }
   
   
