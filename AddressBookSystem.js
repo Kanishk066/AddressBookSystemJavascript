@@ -284,6 +284,32 @@ class Contact {
         }
       }
 
+      getCountByCity() {
+        const countByCity = this.contacts.reduce((accumulator, contact) => {
+          const { city } = contact;
+          accumulator[city] = accumulator[city] ? accumulator[city] + 1 : 1;
+          return accumulator;
+        }, {});
+    
+        console.log("Count by City:");
+        for (let city in countByCity) {
+          console.log(city + ": " + countByCity[city]);
+        }
+      }
+    
+      getCountByState() {
+        const countByState = this.contacts.reduce((accumulator, contact) => {
+          const { state } = contact;
+          accumulator[state] = accumulator[state] ? accumulator[state] + 1 : 1;
+          return accumulator;
+        }, {});
+    
+        console.log("Count by State:");
+        for (let state in countByState) {
+          console.log(state + ": " + countByState[state]);
+        }
+      }
+
     getNumberOfContacts() {
         return this.contacts.length;
       }
@@ -305,6 +331,12 @@ addressBook.searchByCity(searchCity);
 
 const searchState = "NY";
 addressBook.searchByState(searchState);
+
+// Getting count of contact persons by city
+addressBook.getCountByCity();
+
+// Getting count of contact persons by state
+addressBook.getCountByState();
   
  // Adding contacts
 try {
