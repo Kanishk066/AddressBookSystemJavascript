@@ -153,11 +153,20 @@ class Contact {
     constructor() {
       this.contacts = [];
     }
-  
     addContact(contact) {
-      this.contacts.push(contact);
+        const isDuplicate = this.contacts.some(
+          (existingContact) =>
+            existingContact.firstName === contact.firstName &&
+            existingContact.lastName === contact.lastName
+        );
+    
+        if (isDuplicate) {
+          console.log("Duplicate entry found. Contact not added.");
+        } else {
+          this.contacts.push(contact);
+          console.log("Contact added successfully.");
+        }
     }
-  
     findContactByName(firstName, lastName) {
       for (let i = 0; i < this.contacts.length; i++) {
         if (
@@ -227,8 +236,8 @@ class Contact {
   // Creating an AddressBook instance
   const addressBook = new AddressBook();
   
-  // Adding contacts
-  try {
+ // Adding contacts
+try {
     const contact1 = new Contact(
       "John",
       "Doe",
@@ -253,35 +262,24 @@ class Contact {
     );
     addressBook.addContact(contact2);
   
+    // Adding a duplicate contact
+    const duplicateContact = new Contact(
+      "John",
+      "Doe",
+      "789 Oak St",
+      "Chicago",
+      "IL",
+      "54321",
+      "5555555555",
+      "john.doe@example.com"
+    );
+    addressBook.addContact(duplicateContact);
+  
     // Displaying contacts
     addressBook.displayContacts();
-
-    // Finding and editing a contact
-    const firstName = "John";
-    const lastName = "Doe";
-    const newDetails = {
-    address: "456 Oak",
-    city: "New York",
-    state: "NY",
-    zip: "54321",
-    phoneNumber: "5555555555",
-    email: "john.doe@example.com",
-  };
-  addressBook.editContact(firstName, lastName, newDetails);
-
-  // Displaying contacts after editing
-  addressBook.displayContacts();
-
-  // Finding and deleting a contact
-  const deleteFirstName = "Jane";
-  const deleteLastName = "Smith";
-  addressBook.deleteContact(deleteFirstName, deleteLastName);
-
-  // Displaying contacts after deleting
-  addressBook.displayContacts();
-} catch (error) {
-  console.log("Error:", error.message);
-}  
+  } catch (error) {
+    console.log("Error:", error.message);
+  }  
 const numberOfContacts = addressBook.getNumberOfContacts();
 console.log("Number of Contacts:", numberOfContacts);
   
