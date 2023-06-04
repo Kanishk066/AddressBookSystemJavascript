@@ -218,6 +218,10 @@ class Contact {
         console.log("-------------------------------");
       }
     }
+
+    getNumberOfContacts() {
+        return this.contacts.length;
+      }
   }
   
   // Creating an AddressBook instance
@@ -251,7 +255,7 @@ class Contact {
   
     // Displaying contacts
     addressBook.displayContacts();
-  
+
     // Finding and editing a contact
     const firstName = "John";
     const lastName = "Doe";
@@ -278,6 +282,7 @@ class Contact {
 } catch (error) {
   console.log("Error:", error.message);
 }  
-
+const numberOfContacts = addressBook.getNumberOfContacts();
+console.log("Number of Contacts:", numberOfContacts);
   
   
