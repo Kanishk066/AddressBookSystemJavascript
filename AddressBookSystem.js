@@ -228,6 +228,36 @@ class Contact {
       }
     }
 
+    searchByCity(city) {
+        const contactsInCity = this.contacts.filter(
+          (contact) => contact.city === city
+        );
+    
+        if (contactsInCity.length === 0) {
+          console.log(`No contacts found in the city of ${city}.`);
+        } else {
+          console.log(`Contacts found in the city of ${city}:`);
+          for (let contact of contactsInCity) {
+            console.log(contact.firstName + " " + contact.lastName);
+          }
+        }
+      }
+    
+      searchByState(state) {
+        const contactsInState = this.contacts.filter(
+          (contact) => contact.state === state
+        );
+    
+        if (contactsInState.length === 0) {
+          console.log(`No contacts found in the state of ${state}.`);
+        } else {
+          console.log(`Contacts found in the state of ${state}:`);
+          for (let contact of contactsInState) {
+            console.log(contact.firstName + " " + contact.lastName);
+          }
+        }
+      }
+
     getNumberOfContacts() {
         return this.contacts.length;
       }
@@ -235,6 +265,12 @@ class Contact {
   
   // Creating an AddressBook instance
   const addressBook = new AddressBook();
+
+  const searchCity = "New York";
+addressBook.searchByCity(searchCity);
+
+const searchState = "NY";
+addressBook.searchByState(searchState);
   
  // Adding contacts
 try {
